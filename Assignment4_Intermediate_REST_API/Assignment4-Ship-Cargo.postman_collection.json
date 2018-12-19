@@ -1,0 +1,1649 @@
+{
+	"info": {
+		"_postman_id": "99a29df8-980e-4aa6-ace0-c9d272587dff",
+		"name": "Assignment4-Ship/Cargo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b0f8d13-5145-4aab-9a89-f71c9f0c363b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"//Set Environmentals",
+							"",
+							"pm.environment.set(\"init_ship\", jsonData.items[0].id);",
+							"pm.environment.set(\"init_ship_type\", jsonData.items[0].ship_type);",
+							"pm.environment.set(\"init_ship_length\", jsonData.items[0].ship_length);",
+							"pm.environment.set(\"init_ship_name\", jsonData.items[0].ship_name);",
+							"pm.environment.set(\"ship_self_link\",jsonData.items[0].self);",
+							"",
+							"",
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9309d422-870f-4d1f-b3a4-cf2e4c458229",
+						"exec": [
+							"",
+							"//Get self",
+							"var jsonData = pm.response.json();",
+							"var self = jsonData[0].self;",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_ship_name\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_ship_type\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_length\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_ship_length\"));",
+							"",
+							"});",
+							"",
+							"",
+							"pm.test(\"Self id matches ship id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"ship_self_id\"));",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "10649e3d-6f21-4caf-91a6-343d0b12f1f1",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"ship_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"ship_self_id\", jsonData[0].id );",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{init_ship}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{init_ship}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all cargo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7b2e852-8c37-44a7-8991-b908df1de94b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"//Set Environmentals",
+							"console.log(jsonData.items[0].id);",
+							"pm.environment.set(\"init_cargo\", jsonData.items[0].id);",
+							"pm.environment.set(\"init_cargo_content\", jsonData.items[0].content);",
+							"pm.environment.set(\"init_cargo_delivery_date\", jsonData.items[0].delivery_date);",
+							"pm.environment.set(\"init_ship_weight\", jsonData.items[0].weight);",
+							"pm.environment.set(\"cargo_self_link\",jsonData.items[0].self);",
+							"",
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cargo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d98089b-1dd1-4b3d-9365-61e4b7f97c4c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_cargo_content\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_cargo\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_cargo_delivery_date\"));",
+							"",
+							"});",
+							"",
+							"",
+							"pm.test(\"Self id matches Cargo id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"cargo_self_id\"));",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "36760909-9d35-4bfa-bbe2-21ad86265319",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/5649684605435904",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"5649684605435904"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90c6e25c-54a8-49e2-9903-d786c666d314",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"//set environmentals",
+							"pm.environment.set(\"new_ship_id\", jsonData.id);",
+							"pm.environment.set(\"new_ship_name\", \"Delete Ship Name\");",
+							"pm.environment.set(\"new_ship_type\", \"Delete Ship Type\");",
+							"pm.environment.set(\"new_ship_length\", 500);",
+							"",
+							"",
+							"//tests",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete Ship Name\",\n\t\"ship_type\":\"Delete Ship Type\",\n\t\"ship_length\": 500\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship Newly created ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9309d422-870f-4d1f-b3a4-cf2e4c458229",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_ship_name\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_ship_type\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_length\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_ship_length\"));",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "708621b4-5fcf-42cc-9115-65ddc31ea6de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1eb0e162-fe8b-4761-8b56-058bd8c7e169",
+						"exec": [
+							"// set environmentals",
+							"pm.environment.set(\"modified_ship_name\", \"Delete Me\");",
+							"pm.environment.set(\"modified_ship_type\", \"Delete this Ship\");",
+							"pm.environment.set(\"modified_ship_length\", 25);",
+							"",
+							"//run tests",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete Me\",\n\t\"ship_type\":\"Delete this Ship\",\n\t\"ship_length\": 25\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship Modified Ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9309d422-870f-4d1f-b3a4-cf2e4c458229",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_ship_name\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_ship_type\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_length\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_ship_length\"));",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "708621b4-5fcf-42cc-9115-65ddc31ea6de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ship -single field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe33c443-128d-4c4c-a0e9-7877b7e2fc8a",
+						"exec": [
+							"//set environmentals",
+							"pm.environment.set(\"single_modified\", 10);",
+							"",
+							"//test",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_length\": 10\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship Modified Single field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9309d422-870f-4d1f-b3a4-cf2e4c458229",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_ship_name\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_ship_type\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches ship_length\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"single_modified\"));",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "708621b4-5fcf-42cc-9115-65ddc31ea6de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST cargo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "998f960d-58bf-4939-90ac-f2ec54fbf380",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"//set environmentals",
+							"pm.environment.set(\"new_cargo_weight\", 23);",
+							"pm.environment.set(\"new_cargo_content\", \"Delete cargo\");",
+							"pm.environment.set(\"new_cargo_deliv_date\", \"05-01-2018\");",
+							"pm.environment.set(\"new_cargo\", jsonData.id);",
+							"",
+							"",
+							"//tests",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"weight\":23,\n\t\"content\":\"Delete cargo\",\n\t\"delivery_date\": \"05-01-2018\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cargo Newly created cargo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d98089b-1dd1-4b3d-9365-61e4b7f97c4c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_cargo_content\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_cargo_deliv_date\"));",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "36760909-9d35-4bfa-bbe2-21ad86265319",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT cargo Change All Fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ff2b4ff-78ea-492c-bfb6-c36e34d42d47",
+						"exec": [
+							"//set environmentals",
+							"pm.environment.set(\"modified_cargo_weight\", 15);",
+							"pm.environment.set(\"modified_cargo_content\", \"Delete content\");",
+							"pm.environment.set(\"modified_cargo_deliv_date\", \"03-04-2018\");",
+							"",
+							"",
+							"//tests",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"weight\":15,\n\t\"content\":\"Delete content\",\n\t\"delivery_date\": \"03-04-2018\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cargo Newly created cargo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d98089b-1dd1-4b3d-9365-61e4b7f97c4c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_content\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_deliv_date\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo weight\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_weight\"));",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "36760909-9d35-4bfa-bbe2-21ad86265319",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT cargo Change single field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61578af6-9ce1-420c-83a6-90e9b0fdb1c6",
+						"exec": [
+							"//set environmentals",
+							"pm.environment.set(\"single_modified_cargo_content\", \"Chicken Tenders\");",
+							"",
+							"//tests",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"content\":\"Chicken Tenders\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cargo Newly created cargo Copy Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d98089b-1dd1-4b3d-9365-61e4b7f97c4c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"single_modified_cargo_content\"));",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_deliv_date\"));",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo weight\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_weight\"));",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "36760909-9d35-4bfa-bbe2-21ad86265319",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all cargo on ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "110f89c7-23be-4cec-8eb2-afb38e139aa0",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"//Set Environmentals",
+							"pm.environment.set(\"init_number_cargo_on_ship\", 3);",
+							"pm.environment.set(\"init_cargo_on_ship\", jsonData[0].id);",
+							"pm.environment.set(\"init_cargo_content_on_ship\", jsonData[0].content);",
+							"pm.environment.set(\"init_cargo_delivery_date_on_ship\", jsonData[0].delivery_date);",
+							"pm.environment.set(\"init_ship_weight_on_ship\", jsonData[0].weight);",
+							"pm.environment.set(\"cargo_on_ship_self_link\",jsonData[0].self);",
+							"",
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 3\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(parseInt(pm.environment.get(\"init_number_cargo_on_ship\")),10);",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5630742793027584/cargo/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5630742793027584",
+						"cargo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET piece of cargo on ship",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "34b18735-26c6-4c73-93c5-a8a1504e5a6a",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_on_ship_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_on_ship_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "01a2f5af-6ee3-4526-aeb0-5907fe4eee81",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_cargo_content_on_ship\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_cargo_on_ship\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"init_cargo_delivery_date_on_ship\"));",
+							"",
+							"});",
+							"",
+							"",
+							"pm.test(\"Self id matches Cargo id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"cargo_on_ship_self_id\"));",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5630742793027584/cargo/5649684605435904",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5630742793027584",
+						"cargo",
+						"5649684605435904"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH add cargo to ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd5a35ab-0000-4873-8d5a-57dce6cc8862",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}",
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET piece of cargo on ship Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "34b18735-26c6-4c73-93c5-a8a1504e5a6a",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_on_ship_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_on_ship_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "01a2f5af-6ee3-4526-aeb0-5907fe4eee81",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"single_modified_cargo_content\"));",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_deliv_date\"));",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo weight\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_weight\"));",
+							"",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}",
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Try to move cargo from ship to ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d97e8dd5-b11c-4b97-a65d-787ef03d3430",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5630742793027584/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5630742793027584",
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete unload cargo from ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c05ea2ca-f62b-4918-a68e-a8b93a35d81f",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,404]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}",
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all cargo on ship Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "110f89c7-23be-4cec-8eb2-afb38e139aa0",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"//Set Environmentals",
+							"pm.environment.set(\"after_delete_number_cargo_on_ship\", 0);",
+							"",
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 0\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(parseInt(pm.environment.get(\"after_delete_number_cargo_on_ship\")),10);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}/cargo/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}",
+						"cargo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET cargo Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d98089b-1dd1-4b3d-9365-61e4b7f97c4c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting cargo-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo_contents\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"single_modified_cargo_content\"));",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo delivery_date\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_deliv_date\"));",
+							"});",
+							"",
+							"pm.test(\"Body matches cargo weight\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modified_cargo_weight\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Check carrier is empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.carrier).to.eql(undefined);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "36760909-9d35-4bfa-bbe2-21ad86265319",
+						"exec": [
+							"//set self env var",
+							"pm.sendRequest(pm.environment.get(\"cargo_self_link\"), function (err, response) {",
+							"    var jsonData = response.json();",
+							"    pm.environment.set(\"cargo_self_id\", jsonData[0].id );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE cargo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3248d54-8afb-477b-95cc-d1ec266e27e7",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cargo/{{new_cargo}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cargo",
+						"{{new_cargo}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d632106-c8f5-44bd-8506-9a5e724d2869",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
