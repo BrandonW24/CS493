@@ -1,0 +1,952 @@
+{
+	"info": {
+		"_postman_id": "15380346-8374-41db-964b-effd5fa2670c",
+		"name": "Assignment2",
+		"description": "GitHub Gist\nFor this assignment you will work with Gists on GitHub. These are easily shareable code snippets that can be created and modified on GitHub. Incidentally they are also relatively straight forward to work on using the GitHub REST API.\n\nYou will make a series of tests to prove that GitHub Gists API works correctly.\n\nYou should write tests that confirm the following things:\n\n1)Getting public Gists returns 30 Gists (you can get more via pagination, but you just need to get the first 30 and confirm that there are 30)\n2)Confirm that the user `wolfordj` has at least one public Gist\n3)Confirm that when you create a Gist the number of Gists associated to your account increases by 1\n4)Confirm that the contents of the Gist you created match the contents you sent\n5)Confirm that you are able to edit the contents of a Gist (this will require editing it and proving the edits worked)\n6)Confirm that you can add a star to a Gist\n7)Confirm that your list of Starred gists is correct\n8)Confirm you can remove a star from a Gist\n9)Confirm you can delete a Gist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Public Gists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c30d60a9-6775-40ab-b360-45780be69b91",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting Public Gists returns 30 Gists\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(30);",
+							"    ",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/gists/public",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"public"
+					]
+				},
+				"description": "Getting public Gists returns 30 Gists (you can get more via pagination, but you just need to get the first 30 and confirm that there are 30)"
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm 'wolfordj' has at least 1 public Gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e9f76b6-d0c9-4f74-8082-d1e890bc5bbe",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm user is 'wolford' for all responses\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        for(var i=0; i < jsonData.length;i++){",
+							"            pm.expect(jsonData[i].owner.login).to.eql('wolfordj');",
+							"        }",
+							"});",
+							"",
+							"pm.test(\"Confirm user 'wolfordj has at least 1 public Gist'\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"    ",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/wolfordj/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"wolfordj",
+						"gists"
+					]
+				},
+				"description": "Confirm that the user `wolfordj` has at least one public Gist"
+			},
+			"response": []
+		},
+		{
+			"name": "Get number of 'dwwhite'  Gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc6cc99a-8bb4-46b2-82b9-a452a9c57abb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm user is 'DWWhite' for all responses\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        for(var i=0; i < jsonData.length;i++){",
+							"            pm.expect(jsonData[i].owner.login).to.eql('DWWhite');",
+							"        }",
+							"});",
+							"pm.environment.unset(\"num_gist\");",
+							"var jsonData = JSON.parse(responseBody);",
+							"var number_of_gist = jsonData.length.toString();",
+							"pm.environment.set(\"num_gist\", number_of_gist);",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/dwwhite/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"dwwhite",
+						"gists"
+					]
+				},
+				"description": "Get the number of existing Gist that I own"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "42725a29-5311-4edc-99ec-026c4abbce16",
+						"exec": [
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"gist_id\", jsonData.id);",
+							"",
+							"",
+							"pm.test(\"Test if content matches what was sent\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var f_content = pm.environment.get(\"file_content\");",
+							"    pm.expect(jsonData.files[\"file3.txt\"].content).to.eql(f_content);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9f9e1835-58ff-4214-9720-41ebc948d4bc",
+						"exec": [
+							"pm.environment.set(\"file_name\",\"file3.txt\");",
+							"pm.environment.set(\"file_content\",\"Test to see if it works. Good bye!\");",
+							"pm.environment.set(\"file_description\",\"Gist Creation\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Gist Creation\",\n  \"public\": true,\n  \"files\": {\n    \"file3.txt\": {\n      \"content\": \"Test to see if it works. Good bye!\"\n    }\n  }\n}"
+				},
+				"url": {
+					"raw": "https://api.github.com/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists"
+					]
+				},
+				"description": "Confirm that when you create a Gist the number of Gists associated to your account increases by 1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get number of 'dwwhite'  Gist after addition of gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5850672b-1838-45a2-b0a8-4a126a14b909",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm user is 'DWWhite' for all responses\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        for(var i=0; i < jsonData.length;i++){",
+							"            pm.expect(jsonData[i].owner.login).to.eql('DWWhite');",
+							"        }",
+							"});",
+							"",
+							"pm.test(\"Confirm number of gist increase by 1\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        var prev_gist_num = pm.environment.get(\"num_gist\");",
+							"        var current_gist_num = jsonData.length;",
+							"        pm.expect (current_gist_num - prev_gist_num) .to.eql(1);",
+							"    });",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/dwwhite/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"dwwhite",
+						"gists"
+					]
+				},
+				"description": "Get the number of existing Gist that I own"
+			},
+			"response": []
+		},
+		{
+			"name": "Edit a gist",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "77aa229c-82a0-45da-b99a-181fd970a38b",
+						"exec": [
+							"pm.environment.set(\"filename_edited\", \"modified.txt\");",
+							"pm.environment.set(\"file_description_edited\", \"Newly edited file\");",
+							"pm.environment.set(\"file_content_edited\", \"This file was edited\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "937790dc-613c-4258-b9ff-9701c59446e3",
+						"exec": [
+							"var expected_filename=pm.environment.get(\"filename_edited\");",
+							"var expected_content=pm.environment.get(\"file_content_edited\");",
+							"var expected_description=pm.environment.get(\"file_description_edited\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm edited filename is correct\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        pm.expect(jsonData.files[\"modified.txt\"].filename).to.eql(expected_filename);",
+							"});",
+							"",
+							"pm.test(\"Confirm edited content is correct\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        pm.expect(jsonData.files[\"modified.txt\"].content).to.eql(expected_content);",
+							"});",
+							"",
+							"pm.test(\"Confirm edited description is correct\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        pm.expect(jsonData.description).to.eql(expected_description);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"description\": \"Newly edited file\",\n\t\"files\":{\n\t\t\"file3.txt\":{\n\t\t\t\"content\":\"This file was edited\",\n\t\t\t\"filename\":\"modified.txt\"\n\t\t}\n\t}\n}"
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/{{gist_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"{{gist_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if a gist is starred Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "708adc9c-d40d-42af-bc38-819f8f380ef2",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/{{gist_id}}/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"{{gist_id}}",
+						"star"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List of starred Gists Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cab37578-ab28-417a-8c40-ac89a1e90caf",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var starred_id = jsonData[0].id;",
+							"console.log(starred_id);",
+							"pm.environment.set(\"gist_id_starred_1\",starred_id );",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/starred",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"starred"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a star",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59e28689-731a-4ba8-a6a8-968343c8322f",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/{{gist_id}}/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"{{gist_id}}",
+						"star"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check if a gist is starred",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bff00bf8-c39e-4def-a859-d7dfc06ec08a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f89d791-fdfd-436a-91e4-dbd062fc278e",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/{{gist_id}}/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"{{gist_id}}",
+						"star"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List of starred Gists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a2dbc2f-d0cb-4bf3-8031-f3885a05d7b4",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"var starred_id = jsonData[0].id;",
+							"",
+							"pm.environment.set(\"gist_id_starred_2\",starred_id );",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm First starred Gist is correct\",",
+							"    function(){",
+							"        var expected_starred_1=pm.environment.get(\"gist_id_starred_1\");",
+							"        var jsonData = JSON.parse(responseBody);",
+							"        pm.expect (expected_starred_1) .to.eql(jsonData[1].id);",
+							"    });",
+							"    ",
+							"pm.test(\"Confirm Second starred Gist is correct\",",
+							"    function(){",
+							"        var expected_starred_2=pm.environment.get(\"gist_id_starred_2\");",
+							"        var jsonData = JSON.parse(responseBody);",
+							"        pm.expect (expected_starred_2) .to.eql(jsonData[0].id);",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/starred",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"starred"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unstar a gist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39c3a5f5-c7f4-4e0f-b967-198d38bf59ad",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/{{gist_id}}/star",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"{{gist_id}}",
+						"star"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List of starred Gists Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a2dbc2f-d0cb-4bf3-8031-f3885a05d7b4",
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm starred Gist is correct\",",
+							"    function(){",
+							"        var expected_starred_1=pm.environment.get(\"gist_id_starred_1\");",
+							"        var jsonData = JSON.parse(responseBody);",
+							"        pm.expect (expected_starred_1) .to.eql(jsonData[0].id);",
+							"    });",
+							"    ",
+							"pm.test(\"Confirm 1 starred Gist\",",
+							"    function(){",
+							"        var jsonData = JSON.parse(responseBody);",
+							"        pm.expect(jsonData.length) .to.eql(1);",
+							"    }",
+							")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.github.com/gists/starred",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"starred"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get number of 'dwwhite'  Gist Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc6cc99a-8bb4-46b2-82b9-a452a9c57abb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm user is 'DWWhite' for all responses\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        for(var i=0; i < jsonData.length;i++){",
+							"            pm.expect(jsonData[i].owner.login).to.eql('DWWhite');",
+							"        }",
+							"});",
+							"pm.environment.unset(\"num_gist\");",
+							"var jsonData = JSON.parse(responseBody);",
+							"var number_of_gist = jsonData.length.toString();",
+							"pm.environment.set(\"num_gist\", number_of_gist);",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/dwwhite/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"dwwhite",
+						"gists"
+					]
+				},
+				"description": "Get the number of existing Gist that I own"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Created Gist",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/gists/{{gist_id}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"gists",
+						"{{gist_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get number of 'dwwhite'  Gist after addition of gist Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5850672b-1838-45a2-b0a8-4a126a14b909",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm user is 'DWWhite' for all responses\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        for(var i=0; i < jsonData.length;i++){",
+							"            pm.expect(jsonData[i].owner.login).to.eql('DWWhite');",
+							"        }",
+							"});",
+							"",
+							"pm.test(\"Confirm number of gist decrease by 1\",",
+							"    function(){",
+							"        var jsonData = pm.response.json();",
+							"        var prev_gist_num = pm.environment.get(\"num_gist\");",
+							"        var current_gist_num = jsonData.length;",
+							"        pm.expect (prev_gist_num - current_gist_num) .to.eql(1);",
+							"    });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{OAuthToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/dwwhite/gists",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"dwwhite",
+						"gists"
+					]
+				},
+				"description": "Get the number of existing Gist that I own"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "454b4af0-2304-40af-b4e5-e0fe80f555f9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "45926248-25fe-4a22-bcea-52585bffcc76",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
