@@ -1,0 +1,1012 @@
+{
+	"id": "b4a7749a-b120-4ea7-935c-3e201cfb3f1b",
+	"name": "CS493 Final Tests Spaces",
+	"allTests": [],
+	"timestamp": "2018-12-04T02:39:53.550Z",
+	"collection_id": "2542830b-6006-46e9-8d9e-54757ac96cc3",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "b1dd615f-da42-414b-9b66-454a30f7c4ae",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "2542830b-6006-46e9-8d9e-54757ac96cc3",
+		"name": "CS493 Final Tests Spaces",
+		"description": "",
+		"auth": null,
+		"events": null,
+		"variables": [],
+		"order": [
+			"9f62f82f-6b55-438c-8f82-34bf0aeffd75",
+			"0ad4bc1f-842c-4d44-aff4-6a29e89bd81a",
+			"30143144-46bb-4704-ae9a-56e8a4fbad9a",
+			"c8313b0d-aad8-43c9-b72e-ca9d646581f5",
+			"dedee3a2-3c8c-4734-aafa-aca61014e8cb",
+			"35930256-f771-41b4-928a-eb99c0d6d755",
+			"b7cdcf01-724f-4c79-b844-d510e0327f0a",
+			"ea2ece50-44fe-4a52-a3e6-45bc4e625009",
+			"753b5759-2400-4154-a8ce-5ae3ffaa7b7b",
+			"ba119d3b-e56e-4ecc-a55d-3e9904941c9c",
+			"db8342f9-8047-411a-848f-e828f1993d76",
+			"61951cdb-51c3-429f-b534-eb2fc590f509",
+			"905b271e-fddc-4fd6-abfb-7d2c801a2bb0",
+			"e989b9b9-9088-402b-93be-ca7366fc9606",
+			"5594884d-d97b-4dd4-a145-1b5e9d6b611b"
+		],
+		"folders_order": [],
+		"owner": "5449793",
+		"permissions": {},
+		"favorite": false,
+		"shared": false,
+		"type": "collection",
+		"depth": 0
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [
+		{
+			"value": "0",
+			"key": "new_folder_id",
+			"enabled": true
+		}
+	],
+	"results": [
+		{
+			"name": "405 error DEL /spaces",
+			"id": "9f62f82f-6b55-438c-8f82-34bf0aeffd75",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 405",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"191"
+			],
+			"allTests": [
+				{
+					"Status code is 405": true
+				}
+			],
+			"time": "191",
+			"totalRequestTime": "191",
+			"iterationResults": {}
+		},
+		{
+			"name": "405 error PUT /spaces",
+			"id": "0ad4bc1f-842c-4d44-aff4-6a29e89bd81a",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 405",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"80"
+			],
+			"allTests": [
+				{
+					"Status code is 405": true
+				}
+			],
+			"time": "80",
+			"totalRequestTime": "80",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET all Spaces",
+			"id": "30143144-46bb-4704-ae9a-56e8a4fbad9a",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Check number of spaces": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"598"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check number of spaces": true
+				}
+			],
+			"time": "598",
+			"totalRequestTime": "598",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET all Spaces -Accept not application/Json",
+			"id": "c8313b0d-aad8-43c9-b72e-ca9d646581f5",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"tests": {
+				"name": "Status code is 406",
+				"status": "pass",
+				"Body matches Not acceptable": true
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches Not acceptable": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"468"
+			],
+			"allTests": [
+				{
+					"Status code is 406": true,
+					"Body matches Not acceptable": true
+				}
+			],
+			"time": "468",
+			"totalRequestTime": "468",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET  Space - Check Self",
+			"id": "dedee3a2-3c8c-4734-aafa-aca61014e8cb",
+			"url": "http://cs493-final.appspot.com/spaces/5657082955038720",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches had correct id": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches had correct id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"405"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches had correct id": true
+				}
+			],
+			"time": "405",
+			"totalRequestTime": "405",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET all Spaces- Pagination",
+			"id": "35930256-f771-41b4-928a-eb99c0d6d755",
+			"url": "http://cs493-final.appspot.com/spaces?cursor=CikSI2oNc35jczQ5My1maW5hbHISCxIFU3BhY2UYgICAgPz2jgoMGAAgAA==",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Check number of spaces": true,
+				"Start of next has correct ID": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Start of next has correct ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"503"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check number of spaces": true,
+					"Start of next has correct ID": true
+				}
+			],
+			"time": "503",
+			"totalRequestTime": "503",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST Create Space",
+			"id": "b7cdcf01-724f-4c79-b844-d510e0327f0a",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"tests": {
+				"name": "Status code is 201",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"371"
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": "371",
+			"totalRequestTime": "371",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET  Space -newly created",
+			"id": "ea2ece50-44fe-4a52-a3e6-45bc4e625009",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Start of next has correct Location": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Start of next has correct Location": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"389"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Start of next has correct Location": true
+				}
+			],
+			"time": "389",
+			"totalRequestTime": "389",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET  Space - Check Self",
+			"id": "753b5759-2400-4154-a8ce-5ae3ffaa7b7b",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches has correct name": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches has correct name": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"389"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches has correct name": true
+				}
+			],
+			"time": "389",
+			"totalRequestTime": "389",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET  Space - Check Self Accept not application/json",
+			"id": "ba119d3b-e56e-4ecc-a55d-3e9904941c9c",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"tests": {
+				"name": "Status code is 406",
+				"status": "pass",
+				"Body matches Not acceptable": true
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches Not acceptable": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"256"
+			],
+			"allTests": [
+				{
+					"Status code is 406": true,
+					"Body matches Not acceptable": true
+				}
+			],
+			"time": "256",
+			"totalRequestTime": "256",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET Check entities increased by 1",
+			"id": "db8342f9-8047-411a-848f-e828f1993d76",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Check number of spaces": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"622"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check number of spaces": true
+				}
+			],
+			"time": "622",
+			"totalRequestTime": "622",
+			"iterationResults": {}
+		},
+		{
+			"name": "PUT Spaces",
+			"id": "61951cdb-51c3-429f-b534-eb2fc590f509",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 303,
+				"name": "See Other",
+				"detail": {
+					"name": "See Other",
+					"detail": "The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), it should be assumed that the server has received the data and the redirect should be issued with a separate GET message."
+				}
+			},
+			"tests": {
+				"name": "Status code is 303",
+				"status": "pass",
+				"Location is present": true
+			},
+			"testPassFailCounts": {
+				"Status code is 303": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Location is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"209"
+			],
+			"allTests": [
+				{
+					"Status code is 303": true,
+					"Location is present": true
+				}
+			],
+			"time": "209",
+			"totalRequestTime": "209",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET  Space -check modified values",
+			"id": "905b271e-fddc-4fd6-abfb-7d2c801a2bb0",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches size": true,
+				"Body matches location": true,
+				"Value is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches size": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches location": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Value is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"197"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches size": true,
+					"Body matches location": true,
+					"Value is correct": true
+				}
+			],
+			"time": "197",
+			"totalRequestTime": "197",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE space",
+			"id": "e989b9b9-9088-402b-93be-ca7366fc9606",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"448"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "448",
+			"totalRequestTime": "448",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET Check entities decreased by 1",
+			"id": "5594884d-d97b-4dd4-a145-1b5e9d6b611b",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Check number of spaces": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"603"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check number of spaces": true
+				}
+			],
+			"time": "603",
+			"totalRequestTime": "603",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 28,
+	"totalFail": 0,
+	"totalTime": 5729,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "405 error DEL /spaces",
+			"id": "9f62f82f-6b55-438c-8f82-34bf0aeffd75",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "405 error PUT /spaces",
+			"id": "0ad4bc1f-842c-4d44-aff4-6a29e89bd81a",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET all Spaces",
+			"id": "30143144-46bb-4704-ae9a-56e8a4fbad9a",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET all Spaces -Accept not application/Json",
+			"id": "c8313b0d-aad8-43c9-b72e-ca9d646581f5",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches Not acceptable": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET  Space - Check Self",
+			"id": "dedee3a2-3c8c-4734-aafa-aca61014e8cb",
+			"url": "http://cs493-final.appspot.com/spaces/5657082955038720",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches had correct id": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET all Spaces- Pagination",
+			"id": "35930256-f771-41b4-928a-eb99c0d6d755",
+			"url": "http://cs493-final.appspot.com/spaces?cursor=CikSI2oNc35jczQ5My1maW5hbHISCxIFU3BhY2UYgICAgPz2jgoMGAAgAA==",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Start of next has correct ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "POST Create Space",
+			"id": "b7cdcf01-724f-4c79-b844-d510e0327f0a",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET  Space -newly created",
+			"id": "ea2ece50-44fe-4a52-a3e6-45bc4e625009",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Start of next has correct Location": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET  Space - Check Self",
+			"id": "753b5759-2400-4154-a8ce-5ae3ffaa7b7b",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches has correct name": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET  Space - Check Self Accept not application/json",
+			"id": "ba119d3b-e56e-4ecc-a55d-3e9904941c9c",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches Not acceptable": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET Check entities increased by 1",
+			"id": "db8342f9-8047-411a-848f-e828f1993d76",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "PUT Spaces",
+			"id": "61951cdb-51c3-429f-b534-eb2fc590f509",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 303,
+				"name": "See Other",
+				"detail": {
+					"name": "See Other",
+					"detail": "The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), it should be assumed that the server has received the data and the redirect should be issued with a separate GET message."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 303": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Location is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET  Space -check modified values",
+			"id": "905b271e-fddc-4fd6-abfb-7d2c801a2bb0",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches size": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches location": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Value is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "DELETE space",
+			"id": "e989b9b9-9088-402b-93be-ca7366fc9606",
+			"url": "http://cs493-final.appspot.com/spaces/5700423470022656",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "GET Check entities decreased by 1",
+			"id": "5594884d-d97b-4dd4-a145-1b5e9d6b611b",
+			"url": "https://cs493-final.appspot.com/spaces",
+			"time": "2018-12-04T02:39:53.550Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check number of spaces": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "a67cb341-41c5-4cb8-91e1-bfb6bb69970d",
+		"name": "CS493 Final Tests Cars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "405 error Put /cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db0792c3-b32a-4dbd-8d81-69ad81843a5b",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 error DEL /cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3e08777-a5a0-44da-bd3b-04522881e555",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(6);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var next = jsonData.next;",
+							"var self = jsonData.items[0].self;",
+							"pm.environment.set(\"cars_next\", next);",
+							"pm.environment.set(\"cars_self\",self)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Cars Accepts Not application/json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"Body matches Not acceptable\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not acceptable\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Cars- Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(6);",
+							"});",
+							"pm.test(\"Start of next has correct ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"5755063473537024\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"car_self\", jsonData.items[0].self);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{cars_next}}",
+					"host": [
+						"{{cars_next}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Cars - Self",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73e9d5c8-b3e4-4cc1-bb9e-9cd77a6b2116",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has correct ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"5755063473537024\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{car_self}}",
+					"host": [
+						"{{car_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4eacf3c2-2e2b-494c-91a7-8719349d2b94",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"car_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tag\": \"bc34\",\n    \"type\": \"Crossover\",\n    \"make\": \"Volkswagon\",\n    \"model\": \"Tiguan\",\n    \"color\": \"white\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  car -newly created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has make\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Volkswagon\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var self = jsonData.self;",
+							"",
+							"pm.environment.set(\"car_self\",self)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{car_url}}",
+					"host": [
+						"{{car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  car -Check Self",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has make\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Volkswagon\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{car_url}}",
+					"host": [
+						"{{car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Check cars increased by 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(7);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21095904-a01e-4e6c-a15f-36fb13406e99",
+						"exec": [
+							"pm.test(\"Status code is 303\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"pm.test(\"Location is present\", function () {",
+							"    pm.response.to.have.header(\"Location\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tag\": \"bc343\",\n    \"type\": \"DELETE\",\n    \"make\": \"Volkswagon\",\n    \"model\": \"DELETE\",\n    \"color\": \"red\"\n}"
+				},
+				"url": {
+					"raw": "{{car_url}}",
+					"host": [
+						"{{car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Cars -check modified values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches model\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"DELETE\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches color\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"red\");",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{car_url}}",
+					"host": [
+						"{{car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Cars",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{car_url}}",
+					"host": [
+						"{{car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Check cars decrease by 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(6);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

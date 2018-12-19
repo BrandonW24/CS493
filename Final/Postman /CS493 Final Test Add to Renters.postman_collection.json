@@ -1,0 +1,1765 @@
+{
+	"info": {
+		"_postman_id": "135c0639-a999-4ef2-b9fc-9d036bfb8186",
+		"name": "CS493 Final Test Add to Renters",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST New Renter Peter Griffin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a51c61e-5240-467b-9fe3-2354b82cd786",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"pgriff_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"first\":\"Peter\",\n  \"last\": \"Griffin\",\n  \"phone\":\"555-123-3640\",\n  \"username\": \"pgrif\",\n  \"email\": \"pgriffin@email.com\",\n  \"password\": \"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Renter Bart Simpson",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a51c61e-5240-467b-9fe3-2354b82cd786",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bsimpson_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"first\":\"Bart\",\n  \"last\": \"Simpson\",\n  \"phone\":\"555-423-9640\",\n  \"username\": \"bsimpson\",\n  \"email\": \"bsimpson@email.com\",\n  \"password\": \"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token Peter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"peter_id_token\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"pgrif\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Peter's renter id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6712469c-8998-400b-8abd-5e78b3239bba",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bart_renter_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token Bart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"Bart_id_token\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"bsimpson\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Bart's renter id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6712469c-8998-400b-8abd-5e78b3239bba",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bart_renter_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bsimpson_url}}",
+					"host": [
+						"{{bsimpson_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Renters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0296bad9-62c2-42a6-b0bc-2b7ea7f49f25",
+						"exec": [
+							"pm.test(\"Correct number of users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(7);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Bart\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Peter\");",
+							"});",
+							"",
+							"pm.test(\"Proper Number of Renters\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(7);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create Car",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4eacf3c2-2e2b-494c-91a7-8719349d2b94",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"Bart_car_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tag\": \"bc34\",\n    \"type\": \"Crossover\",\n    \"make\": \"The Simpson\",\n    \"model\": \"Bart Car\",\n    \"color\": \"yellow\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  car -newly created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has correct ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"The Simpson\");",
+							"});",
+							"",
+							"pm.test(\"Empty Owner\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.owner).to.eql(null);",
+							"});",
+							"",
+							"pm.test(\"Empty Space\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.space).to.eql(null);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bart_car_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Bart_car_url}}",
+					"host": [
+						"{{Bart_car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create Space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4eacf3c2-2e2b-494c-91a7-8719349d2b94",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bart_space_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"location\":\"Bart Space\",\n\t\"size\":\"12x32\",\n\t\"cost\":55\n}"
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Space -newly created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has correct ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Bart Space\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bart_space_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bart_space_url}}",
+					"host": [
+						"{{bart_space_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add Space to renter-URL Unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dc112c4-7505-4b15-afba-8f01423013d8",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add Space to renter-URL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dc112c4-7505-4b15-afba-8f01423013d8",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body matches self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"self\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add Space to renter-URL Error 403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2dc112c4-7505-4b15-afba-8f01423013d8",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Space Occupied\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check renter for newly rented space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf777756-ff29-4afb-a7ee-a73fdec06c9b",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches Renter has space\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"s_id\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var space_self =jsonData.space[0].self;",
+							"",
+							"pm.environment.set(\"space_self\", space_self);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bsimpson_url}}",
+					"host": [
+						"{{bsimpson_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check space self from Renter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf777756-ff29-4afb-a7ee-a73fdec06c9b",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches Renter has space\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Bart Space\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_self}}",
+					"host": [
+						"{{space_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters spaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90ec42c3-3d7f-481c-bbeb-d79ca175e93f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Bart Space\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters spaces Unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90ec42c3-3d7f-481c-bbeb-d79ca175e93f",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches Unauthorized\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add car to renter Error 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69a0ee9f-3b26-43a3-b833-a0683107f314",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add car to renter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69a0ee9f-3b26-43a3-b833-a0683107f314",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body matches has self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"self\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add car to renter Error 403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69a0ee9f-3b26-43a3-b833-a0683107f314",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters cars Error 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "213f958e-456d-4639-aa43-4c7c06a6a0e6",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "213f958e-456d-4639-aa43-4c7c06a6a0e6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches contains owner's self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"owner_self\");",
+							"});",
+							"",
+							"pm.test(\"Body matches Correct Car\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Bart Car\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add car to renters space Error 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61eec27c-0b4c-4d82-81fb-749682fe361d",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Add car to renters space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61eec27c-0b4c-4d82-81fb-749682fe361d",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Body matches -has self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"self\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters car in space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c85c783-81ff-4caa-8f2e-39a72c90e6b1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check for expected car\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"The Simpson\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces/{{bart_space_id}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces",
+						"{{bart_space_id}}",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE car from renter's space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "328a65a8-b828-4e78-a516-eb82de624229",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches contains renter self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"self\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters car in space -no more",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a9919a5-6f69-421b-9072-99f08ffb9bfd",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces/{{bart_space_id}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces",
+						"{{bart_space_id}}",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE space from renter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces/{{bart_space_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces",
+						"{{bart_space_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters spaces Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90ec42c3-3d7f-481c-bbeb-d79ca175e93f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Renter no long has spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(0);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Remove car from renter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6cf636e4-2c72-4ed7-ac82-532898ecc23f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars/{{bart_car_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars",
+						"{{bart_car_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET renters cars",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "213f958e-456d-4639-aa43-4c7c06a6a0e6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches contains owner's self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"owner_self\");",
+							"});",
+							"",
+							"pm.test(\"Body matches -no long has Car\", function () {",
+							"    pm.expect(pm.response.text()).not.to.include(\"Bart Car\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters/{{bart_renter_id}}/cars",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters",
+						"{{bart_renter_id}}",
+						"cars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  car -car still exists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has correct ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"The Simpson\");",
+							"});",
+							"",
+							"pm.test(\"Empty Owner\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.owner).to.eql(null);",
+							"});",
+							"",
+							"pm.test(\"Empty Space\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.space).to.eql(null);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bart_car_id\", jsonData.id);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Bart_car_url}}",
+					"host": [
+						"{{Bart_car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Cars",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Bart_car_url}}",
+					"host": [
+						"{{Bart_car_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE space",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bart_space_url}}",
+					"host": [
+						"{{bart_space_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Bart Simpson Renter Authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f76577a-39ce-458a-95f2-05e7ee82b237",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bsimpson_url}}",
+					"host": [
+						"{{bsimpson_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Peter Griffin Renter Authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6182384d-bbfe-445f-9578-21544c62528f",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

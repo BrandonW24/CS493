@@ -1,0 +1,1176 @@
+{
+	"info": {
+		"_postman_id": "4d5463d6-c363-4377-9481-1909631be12e",
+		"name": "CS493 Final Tests Renters",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "405 error delete /renters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "077f6567-75c0-4bff-950d-251cc3fa3f19",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 error  put /renters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cb9964af-1c70-4132-b98d-4dc9bc0b2419",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Renters",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8747799a-acb9-472b-8d12-82099872c4ca",
+						"exec": [
+							"pm.test(\"Total number of renters = 5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(5);",
+							"});",
+							"pm.test(\"Pagination doesn't exist\", function () {",
+							"    pm.expect(pm.response.text()).not.to.include(\"next\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Renters Accepts not application/json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8747799a-acb9-472b-8d12-82099872c4ca",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"Body matches Not Acceptable\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not Acceptable\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "text/html"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Renter Peter Griffin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a51c61e-5240-467b-9fe3-2354b82cd786",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"pgriff_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"first\":\"Peter\",\n  \"last\": \"Griffin\",\n  \"phone\":\"555-123-3640\",\n  \"username\": \"pgrif\",\n  \"email\": \"pgriffin@email.com\",\n  \"password\": \"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST New Renter Bart Simpson",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a51c61e-5240-467b-9fe3-2354b82cd786",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"bsimpson_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"first\":\"Bart\",\n  \"last\": \"Simpson\",\n  \"phone\":\"555-423-9640\",\n  \"username\": \"bsimpson\",\n  \"email\": \"bsimpson@email.com\",\n  \"password\": \"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token Peter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"peter_id_token\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"pgrif\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peter Self link",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "091a7f43-0af2-40d4-afca-018b12d0e273",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body has self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"pgriff_url\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peter Self link Accepts not application/json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "091a7f43-0af2-40d4-afca-018b12d0e273",
+						"exec": [
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches Not Acceptable\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not Acceptable\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peter Self link application/xml",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "091a7f43-0af2-40d4-afca-018b12d0e273",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body has self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"pgriff_url\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token Bart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"Bart_id_token\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"bsimpson\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bart Self link",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "303563d0-ad10-4d48-bf9f-221d808dc32f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body has self\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"bsimpson_url\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bsimpson_url}}",
+					"host": [
+						"{{bsimpson_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peter Self link Bart login-UnAuthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddbdf9c4-e93e-4c72-acf3-cd04ebe0685d",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"pm.test(\"Body matches string Unauthorized\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Renters  pagination link",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "befced60-1641-4584-ae85-554e9606647b",
+						"exec": [
+							"pm.test(\"Has First Name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Peter\");",
+							"});",
+							"pm.test(\"Has First Name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Bart\");",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Has Pagination\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"next\");",
+							"});",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"renter_next\",jsonData.next );",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Renters  pagination next link",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "befced60-1641-4584-ae85-554e9606647b",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Has expected renter on page\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"5757956570218496\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{renter_next}}",
+					"host": [
+						"{{renter_next}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Peter Renter-authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8811948e-80d3-459f-8e78-636be9d48628",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Location\");",
+							"});",
+							"pm.test(\"Status code is 303\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first\": \"Change\",\n\t\"last\": \"Me\",\n\t\"phone\": \"555-123-4567\"\n}"
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peter Renter-Check modified values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cdd15f94-7af7-498e-bc8b-cc608099225b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches Last\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Me\");",
+							"});",
+							"pm.test(\"Body matches First\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Change\");",
+							"});",
+							"pm.test(\"Body matches phone\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"555-123-4567\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Peter Renter-unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eed573e8-2c50-49ab-b380-a6c28eb6e183",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"pm.test(\"Body matches Unauthorized\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first\": \"Un\",\n\t\"last\": \"Authorized\",\n\t\"phone\": \"555-123-4567\"\n}"
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peter Renter-Check modified values haven't changed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa7a9301-ed54-4dc0-8e7b-34894e4b85b1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches Last\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Me\");",
+							"});",
+							"pm.test(\"Body matches First\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Change\");",
+							"});",
+							"pm.test(\"Body matches phone\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"555-123-4567\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Peter Griffin Renter UnAuthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7715444-267d-4f99-99de-c88cb3d20739",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"pm.test(\"Body has unauthorized\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Peter Griffin Renter Authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6182384d-bbfe-445f-9578-21544c62528f",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{pgriff_url}}",
+					"host": [
+						"{{pgriff_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Renters check number decrease",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "befced60-1641-4584-ae85-554e9606647b",
+						"exec": [
+							"",
+							"pm.test(\"Does not have Peter\", function () {",
+							"    pm.expect(pm.response.text()).not.to.include(\"Peter\");",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Total Decreased by 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(6);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Bart Simpson Renter UnAuthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "67f2586a-a182-4f92-8c27-916b4395f6d3",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"pm.test(\"Body matches Unauthorized\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Unauthorized\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{peter_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bsimpson_url}}",
+					"host": [
+						"{{bsimpson_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Bart Simpson Renter Authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f76577a-39ce-458a-95f2-05e7ee82b237",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Bart_id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{bsimpson_url}}",
+					"host": [
+						"{{bsimpson_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Renters check number decrease",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "befced60-1641-4584-ae85-554e9606647b",
+						"exec": [
+							"pm.test(\"Doesn't Have Bart\", function () {",
+							"    pm.expect(pm.response.text()).not.to.include(\"Bart\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Total Decreased by 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(5);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/renters",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"renters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

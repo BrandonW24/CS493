@@ -1,0 +1,639 @@
+{
+	"info": {
+		"_postman_id": "2542830b-6006-46e9-8d9e-54757ac96cc3",
+		"name": "CS493 Final Tests Spaces",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "405 error DEL /spaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dba4214f-cf9e-4f4e-b741-4dd8c99a0d43",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 error PUT /spaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5a53ba7d-33e6-448c-ae96-35484af85c23",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Spaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(9);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var next = jsonData.next;",
+							"var self = jsonData.items[0].self;",
+							"pm.environment.set(\"spaces_next\", next);",
+							"pm.environment.set(\"space_self\",self)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Spaces -Accept not application/Json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"Body matches Not acceptable\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not acceptable\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Space - Check Self",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches had correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"5657082955038720\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_self}}",
+					"host": [
+						"{{space_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Spaces- Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(9);",
+							"});",
+							"pm.test(\"Start of next has correct ID\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"5736232826961920\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{spaces_next}}",
+					"host": [
+						"{{spaces_next}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Create Space",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4eacf3c2-2e2b-494c-91a7-8719349d2b94",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"space_url\", jsonData.self);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"location\":\"C3-delete\",\n\t\"size\":\"12x32\",\n\t\"cost\":55\n}"
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Space -newly created",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Start of next has correct Location\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"C3-delete\");",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var self = jsonData.self;",
+							"",
+							"pm.environment.set(\"space_self\",self)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_url}}",
+					"host": [
+						"{{space_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Space - Check Self",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches has correct name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"C3-delete\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_self}}",
+					"host": [
+						"{{space_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Space - Check Self Accept not application/json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"Body matches Not acceptable\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Not Acceptable\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_self}}",
+					"host": [
+						"{{space_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Check entities increased by 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(10);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Spaces",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21095904-a01e-4e6c-a15f-36fb13406e99",
+						"exec": [
+							"pm.test(\"Status code is 303\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});",
+							"",
+							"pm.test(\"Location is present\", function () {",
+							"    pm.response.to.have.header(\"Location\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": \"11x32\",\n    \"cost\": 45,\n    \"location\": \"Delete\"\n}"
+				},
+				"url": {
+					"raw": "{{space_url}}",
+					"host": [
+						"{{space_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Space -check modified values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecf4c733-5e14-4576-9f90-397a4ae65ab2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches size\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"11x32\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches location\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Delete\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Value is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.cost).to.eql(45);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_url}}",
+					"host": [
+						"{{space_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE space",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{space_url}}",
+					"host": [
+						"{{space_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Check entities decreased by 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b50fec2-e8df-4539-91aa-ec564230336c",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Check number of spaces\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.total).to.eql(9);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/spaces",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"spaces"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
