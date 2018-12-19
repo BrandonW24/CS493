@@ -1,0 +1,1395 @@
+{
+	"info": {
+		"_postman_id": "3b2a16e0-635e-448e-90ff-5a126b10e497",
+		"name": "Assignment3-Marina",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting ships-Expect 3\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(parseInt(pm.environment.get(\"init_number_ship\")),10);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						""
+					]
+				},
+				"description": "Get ships already in database"
+			},
+			"response": []
+		},
+		{
+			"name": "Get ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65a5f3a9-98cc-4fe2-bf20-8907045f5863",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    var length = jsonData.length;",
+							"    pm.expect (length) .to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body has correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"get_ship_id\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/5713309579870208",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"5713309579870208"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add ship ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de042873-54d3-4527-b012-2cdd60062601",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var new_ship_id = jsonData.id;",
+							"",
+							"",
+							"pm.environment.set(\"new_ship_id\", new_ship_id);",
+							"pm.environment.set(\"new_ship_path\",\"https:/marina-101318.appspot.com/ships/\"+jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"delete boat\",\n\t\"ship_type\":\"Passanger Liner\",\n\t\"ship_length\": 666\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check added ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65a5f3a9-98cc-4fe2-bf20-8907045f5863",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    var length = jsonData.length;",
+							"    pm.expect (length) .to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body has correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_ship_id\"));",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/{{new_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update ship",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "124b8044-1628-47c0-b849-8fb192f1dfcc",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ae60f8e-4349-49fe-89eb-5bf19f6ddb22",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm correct entity was updated\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_ship_id\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\": \"Updated Name\",\n\t\"ship_type\": \"Updated Type\",\n\t\"ship_length\": 111\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/{{new_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check updated ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "65a5f3a9-98cc-4fe2-bf20-8907045f5863",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting ships-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData);",
+							"    var length = jsonData.length;",
+							"    pm.expect (length) .to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body has correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_ship_id\"));",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check Name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Updated Name\");",
+							"    ",
+							"});pm.test(\"Check ship type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Updated Type\");",
+							"});",
+							"",
+							"pm.test(\"Check ship length\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].ship_length).to.eql(111);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/{{new_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete ship",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f10b6bf4-15cb-4128-95bd-bd70f776a44b",
+						"exec": [
+							"pm.sendRequest(\"https://marina-101318.appspot.com/ships\", function (err, response) {",
+							"    console.log(response.json());",
+							"    var jsonData = response.json();",
+							"    ",
+							"    pm.environment.set(\"current_count\", jsonData.length);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea62d0b3-33e8-4b56-b183-a3d50ab6150a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check if deleted ship exists\", function () {",
+							"    pm.expect(pm.response.text()).to.not.include(pm.environment.get(\"new_ship_id\"));",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/{{new_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check for deleted ships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting ships-Expect 3\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(parseInt(pm.environment.get(\"init_number_ship\")),10);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						""
+					]
+				},
+				"description": "Get ships already in database"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Slips",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf1cb37-d73a-4376-92bb-a6b8615d7afe",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting ships-Expect 7\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"get_slip_id\", jsonData[0].id);",
+							"    pm.expect(jsonData.length).to.eql(parseInt(pm.environment.get(\"init_number_slip\")),10);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bd2ae31-5cda-460a-97b6-dc73b3a60152",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting slips-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    var length = jsonData.length;",
+							"    pm.expect (length) .to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body has correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"get_slip_id\"));",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var ship_path = jsonData[0].ship_url;",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"http://marina-101318.appspot.com/ships/567979078267699292\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{get_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{get_slip_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cd19bf-ce73-4cf9-9ed9-59a6930b8841",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var new_slip_id = jsonData.id;",
+							"",
+							"",
+							"pm.environment.set(\"new_slip_id\", new_slip_id);",
+							"pm.environment.set(\"new_slip_path\",\"https:/marina-101318.appspot.com/slips/\"+jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"slip_number\": 13\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check added slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bd2ae31-5cda-460a-97b6-dc73b3a60152",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting slips-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    var length = jsonData.length;",
+							"    pm.expect (length) .to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body has correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_slip_id\"));",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check slip arrival date is null\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_boat_arrival_date).to.eql(null);",
+							"});",
+							"",
+							"pm.test(\"Check slip arrival current boat is null\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_current_boat).to.eql(null);",
+							"});",
+							"",
+							"pm.test(\"Check slip number is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_number).to.eql(13);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{new_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{new_slip_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24419844-ddf6-4cc6-8d0b-f3a38d802f03",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Confirm correct entity was updated\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_slip_id\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"slip_number\": 22,\n\t\"slip_current_boat\": {{ship_in_slip}},\n\t\"slip_boat_arrival_date\": \"10-22-18\"\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{new_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{new_slip_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check added slip Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bd2ae31-5cda-460a-97b6-dc73b3a60152",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting slips-Expect 1\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    var length = jsonData.length;",
+							"    pm.expect (length) .to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Body has correct id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_slip_id\"));",
+							"});",
+							"",
+							"pm.test(\"Check slip arrival date is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_boat_arrival_date).to.eql(\"10-22-18\");",
+							"});",
+							"",
+							"pm.test(\"Check slip arrival current boat is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_current_boat).to.eql(parseInt(pm.environment.get(\"ship_in_slip\"),10));",
+							"});",
+							"",
+							"pm.test(\"Check slip number is correct\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_number).to.eql(22);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{new_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{new_slip_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bd2ae31-5cda-460a-97b6-dc73b3a60152",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check if deleted slip exists\", function () {",
+							"    pm.expect(pm.response.text()).to.not.include(pm.environment.get(\"new_slip_id\"));",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{new_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{new_slip_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check for deleted slips",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Getting slips-Expect 7\", ",
+							"    function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(parseInt(pm.environment.get(\"init_number_slip\")),10);",
+							"",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						""
+					]
+				},
+				"description": "Get ships already in database"
+			},
+			"response": []
+		},
+		{
+			"name": "slip to add to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "52cd19bf-ce73-4cf9-9ed9-59a6930b8841",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var new_slip_id = jsonData.id;",
+							"",
+							"pm.environment.set(\"slip_to add_slip_id\", new_slip_id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"slip_number\": 25\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ship to add to slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "de042873-54d3-4527-b012-2cdd60062601",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var new_ship_id = jsonData.id;",
+							"console.log(new_ship_id);",
+							"",
+							"pm.environment.set(\"ship_to_add_ship_id\", new_ship_id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"New boat\",\n\t\"ship_type\":\"Passanger Liner\",\n\t\"ship_length\": 222\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add ship to slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f31cab8a-2c2f-4c93-a0d0-cb335f5b1d75",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"slip_boat_arrival_date\": \"10-29-18\"\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{slip_to add_slip_id}}/ships/{{ship_to_add_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{slip_to add_slip_id}}",
+						"ships",
+						"{{ship_to_add_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Ship in Slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body has correct ship name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Passanger Liner\");",
+							"});",
+							"",
+							"pm.test(\"Body has correct ship type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"New boat\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"ship_to_add_ship_id\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{slip_to add_slip_id}}/ships/",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{slip_to add_slip_id}}",
+						"ships",
+						""
+					]
+				},
+				"description": "Get ships already in database"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Ship from Slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{slip_to add_slip_id}}/ships/{{ship_to_add_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{slip_to add_slip_id}}",
+						"ships",
+						"{{ship_to_add_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Ship in Slip after removed from slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check for expected slip #\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_number).to.eql(25);",
+							"});",
+							"",
+							"pm.test(\"Check for boat in slip is null\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_current_boat).to.eql(null);",
+							"});",
+							"",
+							"pm.test(\"Check for arrival date is null\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].slip_boat_arrival_date).to.eql(null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{slip_to add_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{slip_to add_slip_id}}"
+					]
+				},
+				"description": "Get ships already in database"
+			},
+			"response": []
+		},
+		{
+			"name": "Check Ship in slip for occupied insertion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1822af6-ee07-4350-b676-f21aae028f40",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var ship_in_slip=jsonData[0].slip_current_boat;",
+							"",
+							"pm.environment.set(\"ship_already_in_slip\", ship_in_slip);",
+							"pm.environment.set(\"occupied_slip\", 4896606314823680);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/4896606314823680",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"4896606314823680"
+					]
+				},
+				"description": "Get ships already in database"
+			},
+			"response": []
+		},
+		{
+			"name": "Try to add ship to occupied slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f31cab8a-2c2f-4c93-a0d0-cb335f5b1d75",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"slip_boat_arrival_date\": \"10-29-18\"\n}"
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{occupied_slip}}/ships/{{ship_to_add_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{occupied_slip}}",
+						"ships",
+						"{{ship_to_add_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete ship",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f10b6bf4-15cb-4128-95bd-bd70f776a44b",
+						"exec": [
+							"pm.sendRequest(\"https://marina-101318.appspot.com/ships\", function (err, response) {",
+							"    console.log(response.json());",
+							"    var jsonData = response.json();",
+							"    ",
+							"    pm.environment.set(\"current_count\", jsonData.length);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea62d0b3-33e8-4b56-b183-a3d50ab6150a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check if deleted ship exists\", function () {",
+							"    pm.expect(pm.response.text()).to.not.include(pm.environment.get(\"new_ship_id\"));",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/ships/{{ship_to_add_ship_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"{{ship_to_add_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2bd2ae31-5cda-460a-97b6-dc73b3a60152",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check if deleted slip exists\", function () {",
+							"    pm.expect(pm.response.text()).to.not.include(pm.environment.get(\"new_slip_id\"));",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://marina-101318.appspot.com/slips/{{slip_to add_slip_id}}",
+					"protocol": "https",
+					"host": [
+						"marina-101318",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"slips",
+						"{{slip_to add_slip_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
