@@ -1,0 +1,996 @@
+{
+	"id": "021bbf4e-142e-4789-ae1d-9894b3660537",
+	"name": "Adv-REST",
+	"allTests": [],
+	"timestamp": "2018-11-03T19:48:15.147Z",
+	"collection_id": "093f1c4f-a9e6-4926-8b91-84e5977fb50d",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "0b8eede8-0b7d-432c-9c9a-4982fe130dd3",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "093f1c4f-a9e6-4926-8b91-84e5977fb50d",
+		"name": "Adv-REST",
+		"description": "",
+		"auth": null,
+		"events": null,
+		"variables": [],
+		"order": [
+			"98b0e1a5-60e5-4420-9cbd-364c4a694faa",
+			"361d0b9c-dbb0-4ff7-9803-803728dbf399",
+			"f8ee9a1d-b66d-462b-b282-f3ee0810b6a6",
+			"363befef-9cb8-4597-a4bb-a996dce048ce",
+			"7752eb4f-4d63-43eb-b0cc-7032e066d30f",
+			"9149fc6a-ff5e-44af-a795-f9d3b1ef218e",
+			"021f45b1-cb04-4afd-a378-860fc2007c52",
+			"2c8b080f-2d9e-4864-830b-2c4c49e831cb",
+			"77b52471-524b-4ccd-83de-ce44f4a82ee5",
+			"6aaafd91-d3f1-4886-9dae-7ead7cb595de",
+			"238d58c4-49fb-498d-b6b2-4ba54867ba98",
+			"663a28bf-4494-4204-af33-b7a1fd9522e3",
+			"7d09a75a-c5f1-4b2c-94fa-f636d498ff2a"
+		],
+		"folders_order": [],
+		"owner": "5449793",
+		"permissions": {},
+		"favorite": false,
+		"shared": false,
+		"type": "collection",
+		"depth": 0
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [
+		{
+			"value": "0",
+			"key": "new_folder_id",
+			"enabled": true
+		}
+	],
+	"results": [
+		{
+			"name": "GET ships",
+			"id": "98b0e1a5-60e5-4420-9cbd-364c4a694faa",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Check for correct name in first ship": true,
+				"Check for correct length in first ship": true,
+				"Check for correct type in first ship": true,
+				"Number expected on second page = 2": true,
+				"Check self of first ship": true,
+				"Content-Type is present": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct name in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct length in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct type in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Number expected on second page = 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check self of first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"256"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check for correct name in first ship": true,
+					"Check for correct length in first ship": true,
+					"Check for correct type in first ship": true,
+					"Number expected on second page = 2": true,
+					"Check self of first ship": true,
+					"Content-Type is present": true
+				}
+			],
+			"time": "256",
+			"totalRequestTime": "256",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ships -error 406",
+			"id": "361d0b9c-dbb0-4ff7-9803-803728dbf399",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"tests": {
+				"name": "Status code is 406",
+				"status": "pass",
+				"Content-Type is present": true
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"148"
+			],
+			"allTests": [
+				{
+					"Status code is 406": true,
+					"Content-Type is present": true
+				}
+			],
+			"time": "148",
+			"totalRequestTime": "148",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship html",
+			"id": "f8ee9a1d-b66d-462b-b282-f3ee0810b6a6",
+			"url": "https://advanced-rest.appspot.com/ships/5630742793027584",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Content-Type is present": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"108"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Content-Type is present": true
+				}
+			],
+			"time": "108",
+			"totalRequestTime": "108",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship- error 406",
+			"id": "363befef-9cb8-4597-a4bb-a996dce048ce",
+			"url": "https://advanced-rest.appspot.com/ships/5630742793027584",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"tests": {
+				"name": "Status code is 406",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"153"
+			],
+			"allTests": [
+				{
+					"Status code is 406": true
+				}
+			],
+			"time": "153",
+			"totalRequestTime": "153",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship json",
+			"id": "7752eb4f-4d63-43eb-b0cc-7032e066d30f",
+			"url": "https://advanced-rest.appspot.com/ships/5630742793027584",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Check for correct name in first ship": true,
+				"Check for correct length in first ship": true,
+				"Check for correct type in first ship": true,
+				"Check self of first ship": true,
+				"Content-Type is present": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct name in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct length in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct type in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check self of first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"151"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check for correct name in first ship": true,
+					"Check for correct length in first ship": true,
+					"Check for correct type in first ship": true,
+					"Check self of first ship": true,
+					"Content-Type is present": true
+				}
+			],
+			"time": "151",
+			"totalRequestTime": "151",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST ship",
+			"id": "9149fc6a-ff5e-44af-a795-f9d3b1ef218e",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"tests": {
+				"name": "Status code is 201",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"205"
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": "205",
+			"totalRequestTime": "205",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship json Check new ship values",
+			"id": "021f45b1-cb04-4afd-a378-860fc2007c52",
+			"url": "http://advanced-rest.appspot.com/ships/5741031244955648",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Content-Type is present": true,
+				"Check for correct name in first ship": true,
+				"Check for correct length in first ship": true,
+				"Check for correct type in first ship": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct name in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct length in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct type in first ship": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"112"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Content-Type is present": true,
+					"Check for correct name in first ship": true,
+					"Check for correct length in first ship": true,
+					"Check for correct type in first ship": true
+				}
+			],
+			"time": "112",
+			"totalRequestTime": "112",
+			"iterationResults": {}
+		},
+		{
+			"name": "PUT ship-modify new ship",
+			"id": "2c8b080f-2d9e-4864-830b-2c4c49e831cb",
+			"url": "https://advanced-rest.appspot.com/ships/5741031244955648",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 303,
+				"name": "See Other",
+				"detail": {
+					"name": "See Other",
+					"detail": "The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), it should be assumed that the server has received the data and the redirect should be issued with a separate GET message."
+				}
+			},
+			"tests": {
+				"name": "Status code is 303",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 303": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"228"
+			],
+			"allTests": [
+				{
+					"Status code is 303": true
+				}
+			],
+			"time": "228",
+			"totalRequestTime": "228",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship json Check modified values",
+			"id": "77b52471-524b-4ccd-83de-ce44f4a82ee5",
+			"url": "https://advanced-rest.appspot.com/ships/5741031244955648",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Content-Type is present": true,
+				"Check for modified name": true,
+				"Check for modified length": true,
+				"Check for modified type": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for modified name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for modified length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for modified type": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"144"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Content-Type is present": true,
+					"Check for modified name": true,
+					"Check for modified length": true,
+					"Check for modified type": true
+				}
+			],
+			"time": "144",
+			"totalRequestTime": "144",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE ship",
+			"id": "6aaafd91-d3f1-4886-9dae-7ead7cb595de",
+			"url": "https://advanced-rest.appspot.com/ships/5741031244955648",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"tests": {
+				"name": "Status code is 204",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"101"
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			],
+			"time": "101",
+			"totalRequestTime": "101",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ships Check if delete worked",
+			"id": "238d58c4-49fb-498d-b6b2-4ba54867ba98",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Number expected on second page = 2": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Number expected on second page = 2": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"100"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Number expected on second page = 2": true
+				}
+			],
+			"time": "100",
+			"totalRequestTime": "100",
+			"iterationResults": {}
+		},
+		{
+			"name": "Delete Root -error 405",
+			"id": "663a28bf-4494-4204-af33-b7a1fd9522e3",
+			"url": "https://advanced-rest.appspot.com/ships/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 405",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"97"
+			],
+			"allTests": [
+				{
+					"Status code is 405": true
+				}
+			],
+			"time": "97",
+			"totalRequestTime": "97",
+			"iterationResults": {}
+		},
+		{
+			"name": "Put Root -error 405 ",
+			"id": "7d09a75a-c5f1-4b2c-94fa-f636d498ff2a",
+			"url": "https://advanced-rest.appspot.com/ships/",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 405",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"96"
+			],
+			"allTests": [
+				{
+					"Status code is 405": true
+				}
+			],
+			"time": "96",
+			"totalRequestTime": "96",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 35,
+	"totalFail": 0,
+	"totalTime": 1899,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "GET ships",
+			"id": "98b0e1a5-60e5-4420-9cbd-364c4a694faa",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct name in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct length in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct type in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Number expected on second page = 2": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check self of first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ships -error 406",
+			"id": "361d0b9c-dbb0-4ff7-9803-803728dbf399",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship html",
+			"id": "f8ee9a1d-b66d-462b-b282-f3ee0810b6a6",
+			"url": "https://advanced-rest.appspot.com/ships/5630742793027584",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship- error 406",
+			"id": "363befef-9cb8-4597-a4bb-a996dce048ce",
+			"url": "https://advanced-rest.appspot.com/ships/5630742793027584",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 406,
+				"name": "Not Acceptable",
+				"detail": {
+					"name": "Not Acceptable",
+					"detail": "The requested resource is only capable of generating content not acceptable according to the Accept headers sent in the request."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 406": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship json",
+			"id": "7752eb4f-4d63-43eb-b0cc-7032e066d30f",
+			"url": "https://advanced-rest.appspot.com/ships/5630742793027584",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct name in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct length in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct type in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check self of first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "POST ship",
+			"id": "9149fc6a-ff5e-44af-a795-f9d3b1ef218e",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship json Check new ship values",
+			"id": "021f45b1-cb04-4afd-a378-860fc2007c52",
+			"url": "http://advanced-rest.appspot.com/ships/5741031244955648",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct name in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct length in first ship": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for correct type in first ship": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "PUT ship-modify new ship",
+			"id": "2c8b080f-2d9e-4864-830b-2c4c49e831cb",
+			"url": "https://advanced-rest.appspot.com/ships/5741031244955648",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 303,
+				"name": "See Other",
+				"detail": {
+					"name": "See Other",
+					"detail": "The response to the request can be found under another URI using a GET method. When received in response to a POST (or PUT/DELETE), it should be assumed that the server has received the data and the redirect should be issued with a separate GET message."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 303": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship json Check modified values",
+			"id": "77b52471-524b-4ccd-83de-ce44f4a82ee5",
+			"url": "https://advanced-rest.appspot.com/ships/5741031244955648",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Type is present": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for modified name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for modified length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for modified type": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "DELETE ship",
+			"id": "6aaafd91-d3f1-4886-9dae-7ead7cb595de",
+			"url": "https://advanced-rest.appspot.com/ships/5741031244955648",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ships Check if delete worked",
+			"id": "238d58c4-49fb-498d-b6b2-4ba54867ba98",
+			"url": "https://advanced-rest.appspot.com/ships",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Number expected on second page = 2": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Delete Root -error 405",
+			"id": "663a28bf-4494-4204-af33-b7a1fd9522e3",
+			"url": "https://advanced-rest.appspot.com/ships/",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Put Root -error 405 ",
+			"id": "7d09a75a-c5f1-4b2c-94fa-f636d498ff2a",
+			"url": "https://advanced-rest.appspot.com/ships/",
+			"time": "2018-11-03T19:48:15.147Z",
+			"responseCode": {
+				"code": 405,
+				"name": "Method Not Allowed",
+				"detail": {
+					"name": "Method Not Allowed",
+					"detail": "A request was made of a resource using a request method not supported by that resource; for example, using GET on a form which requires data to be presented via POST, or using PUT on a read-only resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 405": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}

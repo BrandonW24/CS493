@@ -1,0 +1,805 @@
+{
+	"info": {
+		"_postman_id": "093f1c4f-a9e6-4926-8b91-84e5977fb50d",
+		"name": "Adv-REST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3940638c-adbc-40b2-8f71-cbce9a4b2b0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"//Set Environmentals",
+							"",
+							"pm.environment.set(\"init_ship\", jsonData.items[0].id);",
+							"pm.environment.set(\"init_ship_type\", jsonData.items[0].type);",
+							"pm.environment.set(\"init_ship_length\", jsonData.items[0].length);",
+							"pm.environment.set(\"init_ship_name\", jsonData.items[0].name);",
+							"pm.environment.set(\"ship_self_link\",jsonData.items[0].self);",
+							"pm.environment.set(\"num_ships\", 5);",
+							"pm.environment.set(\"num_ships_page2\",2);",
+							"",
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check for correct name in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData.items[0].length);",
+							"    pm.expect(jsonData.items[0].name).to.eql(\"Ghost Ship\");",
+							"});",
+							"",
+							"pm.test(\"Check for correct length in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData.items[0].length);",
+							"    pm.expect(jsonData.items[0].length).to.eql(100);",
+							"});",
+							"",
+							"pm.test(\"Check for correct type in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.items[0].type).to.eql('A very scary type');",
+							"});",
+							"pm.test(\"Number expected on second page = 2\", function () {",
+							"    var jsonData=pm.response.json();",
+							"    var next = jsonData.next;",
+							"    ",
+							"    pm.sendRequest(next, function(err,response){",
+							"        var js = response.json();",
+							"        pm.expect(js.items.length) .to.eql(pm.environment.get(\"num_ships_page2\"));",
+							"    });",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Check self of first ship\", function () {",
+							"    var jsonData=pm.response.json();",
+							"    var self = jsonData.items[0].self;",
+							"    ",
+							"    pm.sendRequest(self, function(err,response){",
+							"        var js = response.json();",
+							"        console.log(js);",
+							"        pm.expect(js[0].id) .to.eql(pm.environment.get(\"init_ship\"));",
+							"    });",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.response.to.have.header(\"Content-Type\",\"application/json; charset=utf-8\")",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ships -error 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b0f8d13-5145-4aab-9a89-f71c9f0c363b",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.response.to.have.header(\"Content-Type\",\"text/html; charset=utf-8\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship html",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ef4558bd-a7af-4757-82ca-f9c3af2f21de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b66667bb-1d6d-4f13-841c-21986cad4ac9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.response.to.have.header(\"Content-Type\",\"text/html; charset=utf-8\")",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5630742793027584",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5630742793027584"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship- error 406",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "349ae0fb-c6e5-4024-8a44-c2a0b17dfb97",
+						"exec": [
+							"pm.test(\"Status code is 406\", function () {",
+							"    pm.response.to.have.status(406);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/pdf",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5630742793027584",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5630742793027584"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship json",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ef4558bd-a7af-4757-82ca-f9c3af2f21de",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b66667bb-1d6d-4f13-841c-21986cad4ac9",
+						"exec": [
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Check for correct name in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData[0].length);",
+							"    pm.expect(jsonData[0].name).to.eql(\"Ghost Ship\");",
+							"});",
+							"",
+							"pm.test(\"Check for correct length in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData[0].length);",
+							"    pm.expect(jsonData[0].length).to.eql(100);",
+							"});",
+							"",
+							"pm.test(\"Check for correct type in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].type).to.eql('A very scary type');",
+							"});",
+							"",
+							"pm.test(\"Check self of first ship\", function () {",
+							"    var jsonData=pm.response.json();",
+							"    var self = jsonData[0].self;",
+							"    ",
+							"    pm.sendRequest(self, function(err,response){",
+							"        var js = response.json();",
+							"        console.log(pm.environment.get(\"init_ship\"));",
+							"        pm.expect(js[0].id) .to.eql(pm.environment.get(\"init_ship\"));",
+							"    });",
+							"    ",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.response.to.have.header(\"Content-Type\",\"application/json; charset=utf-8\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5630742793027584",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5630742793027584"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90c6e25c-54a8-49e2-9903-d786c666d314",
+						"exec": [
+							"//set environmentals",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"new_ship_self\", jsonData.self);",
+							"pm.environment.set(\"new_ship_name\",\"Costa Concordia\");",
+							"pm.environment.set(\"new_ship_type\", \"Cruise ship\");",
+							"pm.environment.set(\"new_ship_length\", 952);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Costa Concordia\",\n\t\"type\":\"Cruise ship\",\n\t\"length\": 952\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship json Check new ship values",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ef4558bd-a7af-4757-82ca-f9c3af2f21de",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b66667bb-1d6d-4f13-841c-21986cad4ac9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.response.to.have.header(\"Content-Type\",\"application/json; charset=utf-8\")",
+							"});",
+							"pm.test(\"Check for correct name in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"new_ship_id\", jsonData[0].id);",
+							"    pm.expect(jsonData[0].name).to.eql(pm.environment.get(\"new_ship_name\"));",
+							"});",
+							"",
+							"pm.test(\"Check for correct length in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData[0].id);",
+							"    pm.expect(jsonData[0].length).to.eql(pm.environment.get(\"new_ship_length\"));",
+							"});",
+							"",
+							"pm.test(\"Check for correct type in first ship\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].type).to.eql(pm.environment.get(\"new_ship_type\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{new_ship_self}}",
+					"host": [
+						"{{new_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT ship-modify new ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1eb0e162-fe8b-4761-8b56-058bd8c7e169",
+						"exec": [
+							"pm.environment.set(\"modified_ship_name\", \"FedMex\");",
+							"pm.environment.set(\"modified_ship_type\", \"Mexican Food Ship\");",
+							"pm.environment.set(\"modified_ship_length\", 233);",
+							"",
+							"",
+							"pm.test(\"Status code is 303\", function () {",
+							"    pm.response.to.have.status(303);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"FedMex\",\n\t\"type\":\"Mexican Food Ship\",\n\t\"length\": 233\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship json Check modified values",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ef4558bd-a7af-4757-82ca-f9c3af2f21de",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b66667bb-1d6d-4f13-841c-21986cad4ac9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"    pm.response.to.have.header(\"Content-Type\",\"application/json; charset=utf-8\")",
+							"});",
+							"",
+							"pm.test(\"Check for modified name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].name).to.eql(pm.environment.get(\"modified_ship_name\"));",
+							"});",
+							"",
+							"pm.test(\"Check for modified length\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].length).to.eql(pm.environment.get(\"modified_ship_length\"));",
+							"});",
+							"",
+							"pm.test(\"Check for modified type\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].type).to.eql(pm.environment.get(\"modified_ship_type\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ship",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d632106-c8f5-44bd-8506-9a5e724d2869",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/{{new_ship_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"{{new_ship_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ships Check if delete worked",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3940638c-adbc-40b2-8f71-cbce9a4b2b0b",
+						"exec": [
+							"//Tests",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Number expected on second page = 2\", function () {",
+							"    var jsonData=pm.response.json();",
+							"    var next = jsonData.next;",
+							"    ",
+							"    pm.sendRequest(next, function(err,response){",
+							"        var js = response.json();",
+							"        pm.expect(js.items.length) .to.eql(pm.environment.get(\"num_ships_page2\"));",
+							"    });",
+							"    ",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Root -error 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c31083c-37d3-4d05-ac27-a243a7096fb9",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Root -error 405 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1a92c70-f57d-4d24-bb97-a761e58f791f",
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

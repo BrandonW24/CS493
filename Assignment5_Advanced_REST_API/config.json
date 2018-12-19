@@ -1,0 +1,4 @@
+{
+    "GCLOUD_PROJECT": "advanced-rest",
+    "DATA_BACKEND": "datastore"
+}
