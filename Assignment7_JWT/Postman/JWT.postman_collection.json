@@ -1,0 +1,1051 @@
+{
+	"info": {
+		"_postman_id": "5a435a05-72ae-4a84-bbc8-05a44207132b",
+		"name": "JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74e46690-a8fa-4f25-ac1c-72b7d85a94dd",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"Chachi_boat_id\", jsonData.items[0].id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to get ship while not logged in",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token3}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://jwt-111218.appspot.com/ships/5672330625810432",
+					"protocol": "http",
+					"host": [
+						"jwt-111218",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"ships",
+						"5672330625810432"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ship No credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90c6e25c-54a8-49e2-9903-d786c666d314",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Doh!\",\n\t\"type\":\"Sail Boat\",\n\t\"length\": 18\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ship Bad credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90c6e25c-54a8-49e2-9903-d786c666d314",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "none",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Doh!\",\n\t\"type\":\"Sail Boat\",\n\t\"length\": 18\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token me.name@foo.bar",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"id_token\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"me.name@foo.bar\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token Chachi@thekid.com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"id_token2\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"Chachi@thekid.com\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-access token ralph.wiggim@simpsons.com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b2813b5-8c61-42ae-a0de-efcc24598a0b",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"id_token3\", jsonData.id_token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id_token\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"ralph.wiggim@simpson.com\",\n\t\"password\":\"abc123456*\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship-Not Owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3668a0ee-01b6-46f5-b600-0d3bd35216f2",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Body contains string Forbidden\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Forbidden\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5672330625810432",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5672330625810432"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship- Owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1cf08591-5400-4691-80e9-6e99edce1aa5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ralph.wiggim@simpson.com\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Doh!\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token3}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/ships/5676073085829120",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships",
+						"5676073085829120"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ship Owner Me Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90c6e25c-54a8-49e2-9903-d786c666d314",
+						"exec": [
+							"//set environmentals",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"me_name_ship_self\", jsonData.self);",
+							"pm.environment.set(\"me_name_ship_name\",\"delete me\");",
+							"pm.environment.set(\"me_name_ship_type\", \"delete boat\");",
+							"pm.environment.set(\"me_name_ship_length\", 70);",
+							"pm.environment.set(\"me_name_ship_owner\",\"me.name@foo.bar\")",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"delete me\",\n\t\"type\":\"delete boat\",\n\t\"length\": 70\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship- Owner Me Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1cf08591-5400-4691-80e9-6e99edce1aa5",
+						"exec": [
+							"var ship_owner=pm.environment.get(\"me_name_ship_owner\");",
+							"var ship_name=pm.environment.get(\"me_name_ship_name\");",
+							"var ship_length=pm.environment.get(\"me_name_ship_length\");",
+							"var ship_type=pm.environment.get(\"me_name_ship_type\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to owner\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_owner);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to ship name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_name);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to ship length\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_length);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to ship type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_type);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{me_name_ship_self}}",
+					"host": [
+						"{{me_name_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ship Owner Chachi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90c6e25c-54a8-49e2-9903-d786c666d314",
+						"exec": [
+							"//set environmentals",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"chachi_ship_self\", jsonData.self);",
+							"pm.environment.set(\"chachi_ship_name\",\"Happy Days -Delete\");",
+							"pm.environment.set(\"chachi_ship_type\", \"Motor Boat\");",
+							"pm.environment.set(\"chachi_ship_length\", 35 );",
+							"pm.environment.set(\"chachi_ship_owner\",\"chachi@thekid.com\")",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Happy Days -Delete\",\n\t\"type\":\"Motor Boat\",\n\t\"length\": 35\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ship- Owner Chachi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1cf08591-5400-4691-80e9-6e99edce1aa5",
+						"exec": [
+							"var ship_owner=pm.environment.get(\"chachi_ship_owner\");",
+							"var ship_name=pm.environment.get(\"chachi_ship_name\");",
+							"var ship_length=pm.environment.get(\"chachi_ship_length\");",
+							"var ship_type=pm.environment.get(\"chachi_ship_type\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to owner\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_owner);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to ship name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_name);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to ship length\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_length);",
+							"});",
+							"",
+							"pm.test(\"Body matches string to ship type\", function () {",
+							"    pm.expect(pm.response.text()).to.include(ship_type);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{chachi_ship_self}}",
+					"host": [
+						"{{chachi_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET users ships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74e46690-a8fa-4f25-ac1c-72b7d85a94dd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Expected owner me.name@foo.bar\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.items[0].owner).to.eql(\"chachi@thekid.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/users/chachi@thekid.com/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"chachi@thekid.com",
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET users ships wrong user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74e46690-a8fa-4f25-ac1c-72b7d85a94dd",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Body matches has Forbidden\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Forbidden\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token3}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/users/chachi@thekid.com/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"chachi@thekid.com",
+						"ships"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ship- Not Owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a39fe6ab-1ae2-4717-a6c6-b6d05f263cbe",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Non-owner trying to delete ship.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{me_name_ship_self}}",
+					"host": [
+						"{{me_name_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ship- Not Authorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a39fe6ab-1ae2-4717-a6c6-b6d05f263cbe",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{me_name_ship_self}}",
+					"host": [
+						"{{me_name_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ship- Owner Me Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a467f98f-949f-4ca9-8071-ccb90050bbcb",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{me_name_ship_self}}",
+					"host": [
+						"{{me_name_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ship- Owner Chachi",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a467f98f-949f-4ca9-8071-ccb90050bbcb",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{id_token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{chachi_ship_self}}",
+					"host": [
+						"{{chachi_ship_self}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ships -final",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "74e46690-a8fa-4f25-ac1c-72b7d85a94dd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"ship_name\":\"Delete\",\n\t\"ship_type\":\"Delete ship\",\n\t\"ship_length\": 100\n}"
+				},
+				"url": {
+					"raw": "{{url}}/ships",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ships"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

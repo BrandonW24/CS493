@@ -1,0 +1,1312 @@
+{
+	"id": "e57650ee-3fc8-4fd4-831e-8d8f95693085",
+	"name": "JWT",
+	"allTests": [],
+	"timestamp": "2018-11-18T02:21:45.668Z",
+	"collection_id": "5a435a05-72ae-4a84-bbc8-05a44207132b",
+	"folder_id": 0,
+	"target_type": "collection",
+	"environment_id": "18793dba-3a1c-46c8-8ff9-434cef6d503e",
+	"data": [],
+	"delay": 0,
+	"count": 1,
+	"collection": {
+		"id": "5a435a05-72ae-4a84-bbc8-05a44207132b",
+		"name": "JWT",
+		"description": "",
+		"auth": null,
+		"events": null,
+		"variables": [],
+		"order": [
+			"e3b343ac-2946-4866-a728-feefef4ba614",
+			"02c4b9a0-a3b3-40fb-903b-f836bce183dc",
+			"aade6078-0997-497e-9906-58d120069c44",
+			"a406a8ae-63de-4329-ae10-d9dad19b8bee",
+			"7b4a399f-3e10-43bb-bd4e-7b9a52ad345f",
+			"a548a5c6-cb04-4567-998f-7aec47ef8ec0",
+			"c05e33d7-c7b6-41b0-b332-99c33b4ae3bb",
+			"220f30d1-d3b2-4aab-bf04-53b6abb7f78d",
+			"0d51a9e2-e860-4404-9070-2c8941379809",
+			"667c2262-9448-4397-af52-61120bfabdce",
+			"991717ca-24ba-49e6-806f-e1c16914bbb9",
+			"b644dc9b-17ad-4aef-a25f-7d2e3d831577",
+			"c3460ab1-c54a-4619-8c20-c4d429abf54a",
+			"fe26830b-a2f0-4244-895e-0d39107c4b1e",
+			"d962d2d6-af3d-45c5-9d65-1a35e6decb74",
+			"139cb774-fa46-4e0e-9fed-b859f63d0b97",
+			"d470f844-a3ec-43ca-a59d-0ba56d2a9d36",
+			"ad73e410-2eb0-4595-ae0e-c1766cea686c",
+			"f18c7a2c-d8e1-4812-a65e-a878bb581262",
+			"e1a3e2c1-a2d5-423e-ad9b-0dfd68171054"
+		],
+		"folders_order": [],
+		"owner": "5449793",
+		"permissions": {},
+		"favorite": false,
+		"shared": false,
+		"type": "collection",
+		"depth": 0
+	},
+	"folder": null,
+	"environment": null,
+	"globals": [
+		{
+			"value": "0",
+			"key": "new_folder_id",
+			"enabled": true
+		}
+	],
+	"results": [
+		{
+			"name": "GET ships",
+			"id": "e3b343ac-2946-4866-a728-feefef4ba614",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"324"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			],
+			"time": "324",
+			"totalRequestTime": "324",
+			"iterationResults": {}
+		},
+		{
+			"name": "Attempt to get ship while not logged in",
+			"id": "02c4b9a0-a3b3-40fb-903b-f836bce183dc",
+			"url": "http://jwt-111218.appspot.com/ships/5672330625810432",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {},
+			"times": [
+				"140"
+			],
+			"allTests": [
+				{}
+			],
+			"time": "140",
+			"totalRequestTime": "140",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST ship No credentials",
+			"id": "aade6078-0997-497e-9906-58d120069c44",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 401",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"192"
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			],
+			"time": "192",
+			"totalRequestTime": "192",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST ship Bad credentials",
+			"id": "a406a8ae-63de-4329-ae10-d9dad19b8bee",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 401",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"194"
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			],
+			"time": "194",
+			"totalRequestTime": "194",
+			"iterationResults": {}
+		},
+		{
+			"name": "Login-access token me.name@foo.bar",
+			"id": "7b4a399f-3e10-43bb-bd4e-7b9a52ad345f",
+			"url": "https://jwt-111218.appspot.com/login",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"586"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			],
+			"time": "586",
+			"totalRequestTime": "586",
+			"iterationResults": {}
+		},
+		{
+			"name": "Login-access token Chachi@thekid.com",
+			"id": "a548a5c6-cb04-4567-998f-7aec47ef8ec0",
+			"url": "https://jwt-111218.appspot.com/login",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"690"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			],
+			"time": "690",
+			"totalRequestTime": "690",
+			"iterationResults": {}
+		},
+		{
+			"name": "Login-access token ralph.wiggim@simpsons.com",
+			"id": "c05e33d7-c7b6-41b0-b332-99c33b4ae3bb",
+			"url": "https://jwt-111218.appspot.com/login",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"529"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			],
+			"time": "529",
+			"totalRequestTime": "529",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship-Not Owner",
+			"id": "220f30d1-d3b2-4aab-bf04-53b6abb7f78d",
+			"url": "https://jwt-111218.appspot.com/ships/5672330625810432",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"tests": {
+				"name": "Status code is 403",
+				"status": "pass",
+				"Body contains string Forbidden": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body contains string Forbidden": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"327"
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Body contains string Forbidden": true
+				}
+			],
+			"time": "327",
+			"totalRequestTime": "327",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship- Owner",
+			"id": "0d51a9e2-e860-4404-9070-2c8941379809",
+			"url": "https://jwt-111218.appspot.com/ships/5676073085829120",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"146"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string": true
+				}
+			],
+			"time": "146",
+			"totalRequestTime": "146",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST ship Owner Me Name",
+			"id": "667c2262-9448-4397-af52-61120bfabdce",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"tests": {
+				"name": "Status code is 201",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"377"
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": "377",
+			"totalRequestTime": "377",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship- Owner Me Name",
+			"id": "991717ca-24ba-49e6-806f-e1c16914bbb9",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string to owner": true,
+				"Body matches string to ship name": true,
+				"Body matches string to ship length": true,
+				"Body matches string to ship type": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to owner": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship type": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"330"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string to owner": true,
+					"Body matches string to ship name": true,
+					"Body matches string to ship length": true,
+					"Body matches string to ship type": true
+				}
+			],
+			"time": "330",
+			"totalRequestTime": "330",
+			"iterationResults": {}
+		},
+		{
+			"name": "POST ship Owner Chachi",
+			"id": "b644dc9b-17ad-4aef-a25f-7d2e3d831577",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"tests": {
+				"name": "Status code is 201",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"486"
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			],
+			"time": "486",
+			"totalRequestTime": "486",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ship- Owner Chachi",
+			"id": "c3460ab1-c54a-4619-8c20-c4d429abf54a",
+			"url": "http://jwt-111218.appspot.com/ships/5670794235478016",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Body matches string to owner": true,
+				"Body matches string to ship name": true,
+				"Body matches string to ship length": true,
+				"Body matches string to ship type": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to owner": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship type": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"220"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Body matches string to owner": true,
+					"Body matches string to ship name": true,
+					"Body matches string to ship length": true,
+					"Body matches string to ship type": true
+				}
+			],
+			"time": "220",
+			"totalRequestTime": "220",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET users ships",
+			"id": "fe26830b-a2f0-4244-895e-0d39107c4b1e",
+			"url": "https://jwt-111218.appspot.com/users/chachi@thekid.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass",
+				"Expected owner me.name@foo.bar": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Expected owner me.name@foo.bar": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"132"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Expected owner me.name@foo.bar": true
+				}
+			],
+			"time": "132",
+			"totalRequestTime": "132",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET users ships wrong user",
+			"id": "d962d2d6-af3d-45c5-9d65-1a35e6decb74",
+			"url": "https://jwt-111218.appspot.com/users/chachi@thekid.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"tests": {
+				"name": "Status code is 403",
+				"status": "pass",
+				"Body matches has Forbidden": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches has Forbidden": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"80"
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Body matches has Forbidden": true
+				}
+			],
+			"time": "80",
+			"totalRequestTime": "80",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE ship- Not Owner",
+			"id": "139cb774-fa46-4e0e-9fed-b859f63d0b97",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"tests": {
+				"name": "Status code is 403",
+				"status": "pass",
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"395"
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Body matches string": true
+				}
+			],
+			"time": "395",
+			"totalRequestTime": "395",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE ship- Not Authorized",
+			"id": "d470f844-a3ec-43ca-a59d-0ba56d2a9d36",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"tests": {
+				"name": "Status code is 401",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"79"
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			],
+			"time": "79",
+			"totalRequestTime": "79",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE ship- Owner Me Name",
+			"id": "ad73e410-2eb0-4595-ae0e-c1766cea686c",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"tests": {
+				"name": "Status code is 204",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"123"
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			],
+			"time": "123",
+			"totalRequestTime": "123",
+			"iterationResults": {}
+		},
+		{
+			"name": "DELETE ship- Owner Chachi",
+			"id": "f18c7a2c-d8e1-4812-a65e-a878bb581262",
+			"url": "http://jwt-111218.appspot.com/ships/5670794235478016",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"tests": {
+				"name": "Status code is 204",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"228"
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			],
+			"time": "228",
+			"totalRequestTime": "228",
+			"iterationResults": {}
+		},
+		{
+			"name": "GET ships -final",
+			"id": "e1a3e2c1-a2d5-423e-ad9b-0dfd68171054",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"totalTime": 0,
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"tests": {
+				"name": "Status code is 200",
+				"status": "pass"
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				"411"
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			],
+			"time": "411",
+			"totalRequestTime": "411",
+			"iterationResults": {}
+		}
+	],
+	"totalPass": 36,
+	"totalFail": 0,
+	"totalTime": 5989,
+	"lifecycle": "done",
+	"requests": [
+		{
+			"name": "GET ships",
+			"id": "e3b343ac-2946-4866-a728-feefef4ba614",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Attempt to get ship while not logged in",
+			"id": "02c4b9a0-a3b3-40fb-903b-f836bce183dc",
+			"url": "http://jwt-111218.appspot.com/ships/5672330625810432",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {}
+		},
+		{
+			"name": "POST ship No credentials",
+			"id": "aade6078-0997-497e-9906-58d120069c44",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "POST ship Bad credentials",
+			"id": "a406a8ae-63de-4329-ae10-d9dad19b8bee",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Login-access token me.name@foo.bar",
+			"id": "7b4a399f-3e10-43bb-bd4e-7b9a52ad345f",
+			"url": "https://jwt-111218.appspot.com/login",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Login-access token Chachi@thekid.com",
+			"id": "a548a5c6-cb04-4567-998f-7aec47ef8ec0",
+			"url": "https://jwt-111218.appspot.com/login",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "Login-access token ralph.wiggim@simpsons.com",
+			"id": "c05e33d7-c7b6-41b0-b332-99c33b4ae3bb",
+			"url": "https://jwt-111218.appspot.com/login",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship-Not Owner",
+			"id": "220f30d1-d3b2-4aab-bf04-53b6abb7f78d",
+			"url": "https://jwt-111218.appspot.com/ships/5672330625810432",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body contains string Forbidden": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship- Owner",
+			"id": "0d51a9e2-e860-4404-9070-2c8941379809",
+			"url": "https://jwt-111218.appspot.com/ships/5676073085829120",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "POST ship Owner Me Name",
+			"id": "667c2262-9448-4397-af52-61120bfabdce",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship- Owner Me Name",
+			"id": "991717ca-24ba-49e6-806f-e1c16914bbb9",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to owner": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship type": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "POST ship Owner Chachi",
+			"id": "b644dc9b-17ad-4aef-a25f-7d2e3d831577",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 201,
+				"name": "Created",
+				"detail": {
+					"name": "Created",
+					"detail": "The request has been fulfilled and resulted in a new resource being created."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ship- Owner Chachi",
+			"id": "c3460ab1-c54a-4619-8c20-c4d429abf54a",
+			"url": "http://jwt-111218.appspot.com/ships/5670794235478016",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to owner": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship name": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship length": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string to ship type": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET users ships",
+			"id": "fe26830b-a2f0-4244-895e-0d39107c4b1e",
+			"url": "https://jwt-111218.appspot.com/users/chachi@thekid.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Expected owner me.name@foo.bar": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET users ships wrong user",
+			"id": "d962d2d6-af3d-45c5-9d65-1a35e6decb74",
+			"url": "https://jwt-111218.appspot.com/users/chachi@thekid.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches has Forbidden": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "DELETE ship- Not Owner",
+			"id": "139cb774-fa46-4e0e-9fed-b859f63d0b97",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden",
+				"detail": {
+					"name": "Forbidden",
+					"detail": "The request was a legal request, but the server is refusing to respond to it. Unlike a 401 Unauthorized response, authenticating will make no difference."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "DELETE ship- Not Authorized",
+			"id": "d470f844-a3ec-43ca-a59d-0ba56d2a9d36",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized",
+				"detail": {
+					"name": "Unauthorized",
+					"detail": "Similar to 403 Forbidden, but specifically for use when authentication is possible but has failed or not yet been provided. The response must include a WWW-Authenticate header field containing a challenge applicable to the requested resource."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "DELETE ship- Owner Me Name",
+			"id": "ad73e410-2eb0-4595-ae0e-c1766cea686c",
+			"url": "http://jwt-111218.appspot.com/ships/5676533754626048",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "DELETE ship- Owner Chachi",
+			"id": "f18c7a2c-d8e1-4812-a65e-a878bb581262",
+			"url": "http://jwt-111218.appspot.com/ships/5670794235478016",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 204,
+				"name": "No Content",
+				"detail": {
+					"name": "No Content",
+					"detail": "The server successfully processed the request, but is not returning any content."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		},
+		{
+			"name": "GET ships -final",
+			"id": "e1a3e2c1-a2d5-423e-ad9b-0dfd68171054",
+			"url": "https://jwt-111218.appspot.com/ships",
+			"time": "2018-11-18T02:21:45.668Z",
+			"responseCode": {
+				"code": 200,
+				"name": "OK",
+				"detail": {
+					"name": "OK",
+					"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+				}
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			}
+		}
+	],
+	"synced": false
+}
