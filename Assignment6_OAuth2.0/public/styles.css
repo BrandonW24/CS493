@@ -1,0 +1,39 @@
+
+
+
+
+body{background-color:#DC4405}
+h1{	padding:15px 32px;
+    align:"center";
+    width:80%;
+    margin:auto;
+}
+
+p{ padding:15px 32px;
+    align:"center";
+    width:80%;
+    margin:auto;
+}
+
+.buttons{position: relative;
+    margin:auto;
+    width:80%;
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+.image{
+    width:100%;
+}

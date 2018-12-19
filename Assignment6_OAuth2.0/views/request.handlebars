@@ -1,0 +1,19 @@
+<h1> This application would like to connect to your account:</h1>
+<p>The purpose of this app is to learn the OAuth 2.0 authorization for Oregon State University CS493 Cloud Application
+    Development class.  The program will extract the First Name, Last Name and URL to Google+ address.</p>
+<div class="buttons">
+    <fieldset>
+        <legend>Allow this app access? </legend>
+        <form  action = "https://accounts.google.com/o/oauth2/v2/auth" method = "get">
+            <input type=hidden name = "response_type" value = "code">
+            <input type = hidden name = "client_id" value = {{client_id}}>
+            <input type = hidden name = "redirect_uri" value = {{redirect_uri}}>
+            <input type = hidden name = "scope"  value = "email">
+            <input type = hidden name = "state" value ={{state}}>
+            <input id="my_button" type="submit" >
+        </form>
+    </fieldset>
+
+</div>
+</br>
+<script src="button.js"></script>
